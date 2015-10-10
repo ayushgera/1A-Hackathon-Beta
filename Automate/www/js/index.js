@@ -38,6 +38,16 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+	
+	$("#ext-link").on("click", function() {
+    if (typeof navigator !== "undefined" && navigator.app) {
+        // Mobile device.
+        navigator.app.loadUrl('http://tinyurl.com/automate-rebook', {openExternal: true});
+    } else {
+        // Possible web browser
+        window.open("http://tinyurl.com/automate-rebook", "_blank");
+    }
+});
        $('.automate-checkbox').click(function() {
 			//alert($(this).attr('class'));  //-->this will alert id of checked checkbox.
 			   if($('.automate-checkbox:checked').length>0){
@@ -65,6 +75,3 @@ var app = {
 
 };
 
-	function openLink(){
-		window.location.href="http://tinyurl.com/automate-rebook";
-	}
