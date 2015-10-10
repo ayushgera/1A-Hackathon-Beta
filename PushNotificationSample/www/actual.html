@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+function getLocation()
+    {
+        if (navigator.geolocation)
+        {
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+        }
+    }
+
+    function showPosition(position)
+    {
+        var latlon=position.coords.latitude+","+position.coords.longitude;
+
+        var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
+        +latlon+"&zoom=14&size=400x300&sensor=false";
+        document.getElementById("map").innerHTML="<img src='"+img_url+"'>";
+    }
+
+    function showError(error)
+    {
+        switch(error.code) 
+        {
+        case error.PERMISSION_DENIED:
+          doc.innerHTML="Request for Geolocation denied by the user."
+          break;
+        case error.POSITION_UNAVAILABLE:
+          doc.innerHTML="Unavailable location information."
+          break;
+        case error.TIMEOUT:
+          doc.innerHTML="Location request timed out."
+          break;
+        case error.UNKNOWN_ERROR:
+          doc.innerHTML="UNKNOWN_ERROR."
+          break;
+        }
+    }
+</script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="navbar">
+      <ul>
+        <li><a href="#" class="ui-btn-active ui-state-persist" data-icon="home">Rebook</a></li>
+        <li><a href="#pagetwo" data-icon="arrow-r">Order Food</a></li>
+        <li><a href="#pagethree" data-icon="arrow-r">Book Cab</a></li>
+      </ul>
+  </div>
+  
+  <div data-role="main" class="ui-content">
+	<button onclick="getLocation()">Press to show location on the map</button>
+    <div id="map"></div>
+  
+  </div>
+
+</div> 
+
+<div data-role="page" id="pagetwo">
+  <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone" data-icon="home">Rebook</a></li>
+        <li><a href="#" class="ui-btn-active ui-state-persist" data-icon="arrow-r">Order Food</a></li>
+        <li><a href="#pagethree" data-icon="arrow-r">Book Cab</a></li>
+      </ul>
+  </div>
+
+  <div data-role="main" class="ui-content">
+	Page Two
+  
+  </div>
+
+</div> 
+
+<div data-role="page" id="pagethree">
+  <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone" data-icon="home">Rebook</a></li>
+        <li><a href="#pagetwo" data-icon="arrow-r">Order Food</a></li>
+        <li><a href="#" class="ui-btn-active ui-state-persist" data-icon="arrow-r">Book Cab</a></li>
+      </ul>
+  </div>
+
+  <div data-role="main" class="ui-content">
+	Page Three
+  </div>
+
+</div> 
+
+</body>
+</html>
