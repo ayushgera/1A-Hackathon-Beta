@@ -61,4 +61,10 @@ var app = {
 					}
 			});
     }
+	
+
 };
+
+	function openLink(){
+		window.location.href="http://tinyurl.com/automate-rebook";
+	}
