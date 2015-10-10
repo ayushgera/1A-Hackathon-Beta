@@ -36,6 +36,8 @@
 				return map;
 			}
 		}
+	
+	
 var app = {
     // Application Constructor
     initialize: function() {
@@ -46,7 +48,8 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+        //document.addEventListener('deviceready', this.onDeviceReady, false);
+		this.onDeviceReady();
     },
     // deviceready Event Handler
     //
@@ -73,7 +76,7 @@ var app = {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	
         var marker = new google.maps.Marker({
               position: latLong,
