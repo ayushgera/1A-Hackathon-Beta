@@ -1,26 +1,8 @@
 {
-    "cordova-plugin-whitelist": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/apache/cordova-plugin-whitelist.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "com.phonegap.plugins.PushPlugin": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phonegap-build/PushPlugin",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "phonegap-plugin-push": {
+    "org.apache.cordova.geolocation": {
         "source": {
             "type": "registry",
-            "id": "phonegap-plugin-push"
+            "id": "org.apache.cordova.geolocation"
         },
         "is_top_level": true,
         "variables": {}

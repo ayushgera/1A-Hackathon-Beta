@@ -16,6 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+ 	
+	function GoogleMap(){
+		 
+		this.initialize = function(){
+			var map = showMap();
+			}
+			 
+			var showMap = function(){
+				var mapOptions = {
+				zoom: 4,
+				center: new google.maps.LatLng(-33, 151),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+				 
+				var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+				 
+				return map;
+			}
+		}
 var app = {
     // Application Constructor
     initialize: function() {
@@ -37,57 +57,33 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-    
-			$("#ext-link").bind("click", function() {
-			if (typeof navigator !== "undefined" && navigator.app) {
-				// Mobile device.
-				navigator.app.loadUrl('http://tinyurl.com/automate-rebook', {openExternal: true});
-			} else {
-				// Possible web browser
-				window.open("http://tinyurl.com/automate-rebook", "_blank");
-			}
-		});
-	
-		var pushNotification = window.plugins.pushNotification;
-		pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"1040655196387","ecb":"app.onNotificationGCM"});
-		var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+		var map = new GoogleMap();
+		map.initialize();
+        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
     },
-	successHandler: function(result) {
-		console.log('Callback Success! Result = '+result);
-	},
-	errorHandler:function(error) {
-		alert("Sorry some error occured "+error);
-	},
-	onNotificationGCM: function(e) {
-        switch( e.event )
-        {
-            case 'registered':
-                if ( e.regid.length > 0 )
-                {
-                    console.log("Regid " + e.regid);
-                }
+	
+	    onSuccess: function(position){
+        var longitude = position.coords.longitude;
+        var latitude = position.coords.latitude;
+        var latLong = new google.maps.LatLng(latitude, longitude);
 
-            break;
- 
-            case 'message':
-              // this is the actual push notification. its format depends on the data model from the push server
-              alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-            break;
- 
-            case 'error':
-              alert('GCM error = '+e.msg);
-            break;
- 
-            default:
-              alert('An unknown GCM event has occurred');
-              break;
-        }
+        var mapOptions = {
+            center: latLong,
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	
+        var marker = new google.maps.Marker({
+              position: latLong,
+              map: map,
+              title: 'my location'
+          });
+    },
+    
+    onError: function(error){
+        alert("the code is " + error.code + ". \n" + "message: " + error.message);
     }
+
 };
